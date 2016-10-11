@@ -10,15 +10,39 @@ use Larastarscn\AliDaYu\Exceptions\UnknowDriverException;
 
 class AliDaYuManager implements Factory
 {
+    /**
+     * The config of the service.
+     *
+     * @var array
+     */
     protected $config;
+
+    /**
+     * The HTTP client instance.
+     *
+     * @var \GuzzleHttp\Client
+     */
     protected $httpClient;
 
+    /**
+     * Create a new manager instance.
+     *
+     * @param  array  $config
+     * @param  \GuzzleHttp\Client  $httpClient
+     * @return void
+     */
     public function __construct($config, $httpClient)
     {
         $this->config = $config;
         $this->httpClient = $httpClient;
     }
 
+    /**
+     * Creata a new provider implementation.
+     *
+     * @param  string  $driver
+     * @return \Larastarscn\AliDaYu\Providers\AbstractProvider
+     */
     public function driver($driver)
     {
         switch ($driver) {

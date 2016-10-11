@@ -3,6 +3,12 @@ namespace Larastarscn\AliDaYu\Traits;
 
 trait MethodSetter
 {
+    /**
+     * Set method for request.
+     *
+     * @param  string  $path
+     * @return void
+     */
     public function setMethod($path)
     {
         $methods = [

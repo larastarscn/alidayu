@@ -7,22 +7,97 @@ class AbstractProvider
 {
     use MethodSetter;
 
+    /**
+     * The name for the API.
+     *
+     * @var string
+     */
     protected $method;
+
+    /**
+     * The app key of the application.
+     *
+     * @var string
+     */
     protected $appKey;
+
+    /**
+     * The app secret of the application.
+     *
+     * @var string
+     */
     protected $appSecret;
+
+    /**
+     * The format of the response's content.
+     *
+     * @var string 'xml'|'json'
+     */
     protected $format = 'json';
+
+    /**
+     * The version of the API.
+     *
+     * @var string
+     */
     protected $version = '2.0';
+
+    /**
+     * The unique identifier of the partner.
+     *
+     * @var string
+     */
     protected $partnerId;
+
+    /**
+     * The target app key of the applicaton.
+     *
+     * @var string
+     */
     protected $targetAppKey;
-    protected $simplify = false;
+
+    /**
+     * The sign method of the request.
+     *
+     * @var string
+     */
     protected $signMethod = 'md5';
+
+    /**
+     * The environment of the request.
+     *
+     * @var string
+     */
     protected $env = "production";
+
+    /**
+     * Determine the request's protocol.
+     *
+     * @var string
+     */
     protected $https = false;
 
+    /**
+     * The cofing of the service.
+     *
+     * @var array
+     */
     protected $config;
+
+    /**
+     * The HTTP client instance.
+     *
+     * @var \GuzzleHttp\Client
+     */
     protected $httpClient;
 
-
+    /**
+     * Create a new provider instance.
+     *
+     * @param  array  $config
+     * @param  \GuzzleHttp\Client  $httpClient
+     * @return void
+     */
     public function __construct($config, $httpClient)
     {
         $this->config = $config;
@@ -32,6 +107,11 @@ class AbstractProvider
         $this->env = $config['env'];
     }
 
+    /**
+     * Build public parameters for the request.
+     *
+     * @return array
+     */
     public function buildPublicParams()
     {
         return [
@@ -44,6 +124,12 @@ class AbstractProvider
         ];
     }
 
+    /**
+     * Concat the all parameters for the request.
+     *
+     * @param  array  $params
+     * @return array
+     */
     public function getQueryBody($params)
     {
         $params = array_merge($this->buildPublicParams(), $params);
@@ -52,6 +138,12 @@ class AbstractProvider
         return array_merge($params, compact('sign'));
     }
 
+    /**
+     * Generate the signature.
+     *
+     * @param  array  $params
+     * @return string
+     */
     public function sign($params)
     {
         ksort($params);
@@ -67,6 +159,11 @@ class AbstractProvider
         return strtoupper(md5($this->appSecret. $str . $this->appSecret));
     }
 
+    /**
+     * Obtain the timestamp.
+     *
+     * @return string
+     */
     public function getTimestamp()
     {
         $timezone = date_default_timezone_get();
@@ -82,6 +179,11 @@ class AbstractProvider
         return $date;
     }
 
+    /**
+     * Obtain the target of the request.
+     *
+     * @return string
+     */
     public function getRequestURL()
     {
         $protocol = $this->https ? 'https' : 'http';
@@ -100,6 +202,12 @@ class AbstractProvider
         return $urls[$this->env][$protocol];
     }
 
+    /**
+     * Configure the options of the implementation.
+     *
+     * @param  array  $options
+     * @return \Larastarscn\AliDaYu\Providers\AbstractProvider
+     */
     public function configure($options)
     {
         foreach ($options as $key => $value) {
@@ -109,6 +217,12 @@ class AbstractProvider
         return $this;
     }
 
+    /**
+     * Get the response of the request.
+     *
+     * @param  array  $params
+     * @return Psr\Http\Message\ResponseInterface
+     */
     public function getResponse($params)
     {
         $response = $this->httpClient->get($this->getRequestURL(), [

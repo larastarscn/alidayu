@@ -7,6 +7,12 @@ class SmsProvider extends AbstractProvider
 {
     use ParamChecker;
 
+    /**
+     * Get response from the send API .
+     *
+     * @param  array  $params
+     * @return Psr\Http\Message\ResponseInterface
+     */
     public function send($params)
     {
         $this->checkParams($params);
@@ -15,6 +21,12 @@ class SmsProvider extends AbstractProvider
         return $this->getResponse($params);
     }
 
+    /**
+     * Get response from the query API .
+     *
+     * @param  array  $params
+     * @return Psr\Http\Message\ResponseInterface
+     */
     public function query($params)
     {
         $params = array_merge(['current_page' => 1, 'page_size' => 20], $params);

@@ -5,6 +5,12 @@ use Larastarscn\AliDaYu\Exceptions\MissingMandatoryParametersException;
 
 trait ParamChecker
 {
+    /**
+     * Check the request's parameters.
+     *
+     * @param  string  $path
+     * @return void
+     */
     public function checkParams($params, $type = 'sms.send')
     {
         $mandatoryParameters = [
@@ -32,7 +38,7 @@ trait ParamChecker
         ];
 
         foreach ($mandatoryParameters[$type] as $value) {
-            if (!array_key_exists($value, $params)) {
+            if (! array_key_exists($value, $params)) {
                 throw new MissingMandatoryParametersException("paramter {$value} is required!");
             }
         }
