@@ -1,0 +1,21 @@
+{
+    "name": "larastarscn/alidayu",
+    "description": "Simple and easy to use, a laravel package of alidayu.",
+    "keywords": ["alidayu", "laravel", "sms", "larastarscn"],
+    "license": "MIT",
+    "require": {
+        "guzzlehttp/guzzle": "~6.0",
+        "laravel/framework" : "~5.0"
+    },
+    "authors": [
+        {
+            "name": "dearmadman",
+            "email": "i@dearmadman.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Larastarscn\\AliDaYu\\": "src/"
+        }
+    }
+}
