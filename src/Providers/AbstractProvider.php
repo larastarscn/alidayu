@@ -84,7 +84,7 @@ class AbstractProvider
 
     public function getRequestURL()
     {
-        $protocol = $this->https ? 'https' : 'http';
+        $https = $this->https ? 'https' : 'http';
 
         $urls = [
             'production' => [
@@ -97,7 +97,7 @@ class AbstractProvider
             ],
         ];
 
-        return $urls[$this->env][$protocol];
+        return $urls[$this->env][$https];
     }
 
     public function configure($options)
