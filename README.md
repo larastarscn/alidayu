@@ -27,7 +27,7 @@ After installing the AliDaYu libary, register the `Larastarscn\AliDaYu\AliDaYuSe
 
 Also, add the `AliDaYu` facades to the `aliases` array in your `app.php` configuration file:
 
-    'AliDaYu' => Laravel\AliDaYu\Facades\AliDaYu::class
+    'AliDaYu' => Larastarscn\AliDaYu\Facades\AliDaYu::class
 
 Then, you will need to publish the `alidayu.php` configuration file to the `config` directory:
 
@@ -64,7 +64,8 @@ Now you can request any interface by AliDaYu facades, to send an sms, you may co
 
 Next, we will list the rest of interface in fllow:
 
-    /** sms.query **/
+**alibaba.aliqin.fc.sms.num.query**
+
     $response = AliDaYu::driver('sms')->query([
         'rec_num' => 18949825252,
         'query_date' => '20161011',
@@ -72,7 +73,8 @@ Next, we will list the rest of interface in fllow:
         'page_size' => 10,
     ]);
 
-    /** tts.singlecall **/
+**alibaba.aliqin.fc.tts.num.singlecall**
+
     $response = AliDaYU::driver('tts')->singleCall([
         'extend' => 'wang',
         'tts_param' => '{"name": "wang", "code": "Dearmadman"}',
@@ -81,7 +83,8 @@ Next, we will list the rest of interface in fllow:
         'tts_code' => 'TTS_16825713'
     ]);
 
-    /** voice.singlecall **/
+**alibaba.aliqin.fc.voice.num.singlecall**
+
     $response = AliDaYu::driver('voice')->singleCall([
         'extend' => 'wang',
         'called_num' => 18949825252,
@@ -89,7 +92,8 @@ Next, we will list the rest of interface in fllow:
         'voice_code' => '2fc5d547-71c0-45e6-8b06-1f3dc40b630c.wav',
     ]);
 
-    /** voice.doublecall **/
+**alibaba.aliqin.fc.voice.num.doublecall**
+
     $response = AliDaYu::driver('voice')->doubleCall([
         'extend' => 'Dearmadman',
         'caller_num' => 18949825252,
@@ -98,12 +102,14 @@ Next, we will list the rest of interface in fllow:
         'called_show_num' => '51482043271',
     ]);
 
-    /** flow.query **/
+**alibaba.aliqin.fc.flow.query**
+
     $response = AliDaYu::driver('flow')->query([
         'out_id' => 'out_id'  // options
     ]);
 
-    /** flow.charge **/
+**alibaba.aliqin.fc.flow.charge**
+
     $response = AliDaYu::driver('flow')->charge([
         'phone_num' => 18949825252,
         'reason' => 'no reason',
@@ -111,10 +117,12 @@ Next, we will list the rest of interface in fllow:
         'out_recharge_id' => '6d9fce1e',
     ]);
 
-    /** flow.grade **/
+**alibaba.aliqin.fc.flow.grade**
+
     $response = AliDaYu::driver('flow')->grade();
 
-    /** flow.charge.province **/
+**alibaba.aliqin.fc.flow.charge.province**
+
     $response = AliDaYu::driver('flow')->chargeProvince([
         'phone_num' => 18949825252,
         'reason' => 'no reason',
