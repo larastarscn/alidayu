@@ -25,6 +25,14 @@ class AliDaYuManager implements Factory
     protected $httpClient;
 
     /**
+     * The instances of the driviers.
+     *
+     * @var array
+     *
+    */
+    protected $instances;
+
+    /**
      * Create a new manager instance.
      *
      * @param  array  $config
@@ -45,22 +53,28 @@ class AliDaYuManager implements Factory
      */
     public function driver($driver)
     {
+        if ($this->instance[$driver]) {
+            return $this->instance[$driver];
+        }
+
         switch ($driver) {
             case 'sms':
-                return new SmsProvider($this->config, $this->httpClient);
+                $this->instance[$driver] =  new SmsProvider($this->config, $this->httpClient);
                 break;
             case 'tts':
-                return new TTSProvider($this->config, $this->httpClient);
+                $this->instance[$driver] = new TTSProvider($this->config, $this->httpClient);
                 break;
             case 'voice':
-                return new VoiceProvider($this->config, $this->httpClient);
+                $this->instance[$driver] = new VoiceProvider($this->config, $this->httpClient);
                 break;
             case 'flow':
-                return new FlowProvider($this->config, $this->httpClient);
+                $this->instance[$driver] = new FlowProvider($this->config, $this->httpClient);
                 break;
             default:
                 throw new UnknowDriverException("The name of driver is not found.");
                 break;
         }
+
+        return $this->instance[$driver];
     }
 }
