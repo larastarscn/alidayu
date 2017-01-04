@@ -54,7 +54,7 @@ class AliDaYuManager implements Factory
     public function driver($driver)
     {
         if ($this->instances[$driver]) {
-            return $this->instance[$driver];
+            return $this->instances[$driver];
         }
 
         switch ($driver) {
