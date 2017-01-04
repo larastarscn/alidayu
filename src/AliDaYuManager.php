@@ -53,28 +53,28 @@ class AliDaYuManager implements Factory
      */
     public function driver($driver)
     {
-        if ($this->instance[$driver]) {
+        if ($this->instances[$driver]) {
             return $this->instance[$driver];
         }
 
         switch ($driver) {
             case 'sms':
-                $this->instance[$driver] =  new SmsProvider($this->config, $this->httpClient);
+                $this->instances[$driver] =  new SmsProvider($this->config, $this->httpClient);
                 break;
             case 'tts':
-                $this->instance[$driver] = new TTSProvider($this->config, $this->httpClient);
+                $this->instances[$driver] = new TTSProvider($this->config, $this->httpClient);
                 break;
             case 'voice':
-                $this->instance[$driver] = new VoiceProvider($this->config, $this->httpClient);
+                $this->instances[$driver] = new VoiceProvider($this->config, $this->httpClient);
                 break;
             case 'flow':
-                $this->instance[$driver] = new FlowProvider($this->config, $this->httpClient);
+                $this->instances[$driver] = new FlowProvider($this->config, $this->httpClient);
                 break;
             default:
                 throw new UnknowDriverException("The name of driver is not found.");
                 break;
         }
 
-        return $this->instance[$driver];
+        return $this->instances[$driver];
     }
 }
