@@ -5,7 +5,7 @@
     "license": "MIT",
     "require": {
         "guzzlehttp/guzzle": "~6.0",
-        "laravel/framework" : "~5.0"
+        "laravel/framework" : ">=5.1"
     },
     "authors": [
         {
